@@ -1,0 +1,50 @@
+Driver Hiring App - Setup Guide (Windows)
+========================================
+
+Files added:
+- backend/.env.template
+- admin/.env.local.template
+- mobile/.env.template
+- setup_env.bat (Windows batch)
+- setup_env.ps1 (PowerShell script called by the batch)
+- .gitignore already exists (do not commit secrets)
+
+HOW TO RUN THE SETUP (Windows)
+1. Unzip the project to a folder, e.g., C:\projects\driver_hiring_project
+2. Open Command Prompt or PowerShell as your user (no admin needed).
+3. Navigate to the project folder:
+   cd C:\projects\driver_hiring_project\driver_hiring_project_starter
+4. Run the setup script by double-clicking 'setup_env.bat' or via command line:
+   setup_env.bat
+   (If PowerShell execution policy blocks the script, run PowerShell as Administrator and execute:
+    Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+    Then run setup_env.bat again.)
+
+WHAT THE SCRIPT DOES
+- Prompts you for required keys (Firebase Project ID, Razorpay keys, Postgres URL, Google Maps key, etc.)
+- Writes backend/.env, admin/.env.local, and mobile/.env files with your values
+- DOES NOT install dependencies or run npm/flutter commands (manual step per your request)
+
+AFTER SETUP (manual steps)
+1. Backend
+   cd backend
+   npm install
+   # If using docker-compose:
+   docker-compose up --build
+
+2. Admin
+   cd admin
+   npm install
+   npm start
+
+3. Mobile (Flutter)
+   cd mobile
+   flutter pub get
+   # Ensure google-services.json (Android) or GoogleService-Info.plist (iOS) are placed correctly per Firebase setup
+
+SECURITY NOTES
+- Never commit actual .env files or serviceAccountKey.json to Git.
+- Use GitHub Secrets or GCP Secret Manager for production deployments.
+- Replace test Razorpay keys with live keys before going to production.
+
+If you want, I can also create a small checklist to validate each integration after you run setup. Let me know!
